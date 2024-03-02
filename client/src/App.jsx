@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage.jsx";
 import ProgressPage from "./pages/ProgressPage.jsx";
 import Page404 from "./pages/Page-404.jsx";
 import FullScreenLoader from "./components/MasterLayout/FullScreenLoader.jsx";
+import ForgetPassPage from "./pages/ForgetPassPage.jsx";
 
 const App = () => {
     return (
@@ -26,6 +27,7 @@ const App = () => {
                   <Route path={"/login"} element={<LoginPage/> } />
                   <Route path={"/profile"} element={<ProfilePage/> } />
                   <Route path={"/progress"} element={<ProgressPage/> } />
+                  <Route path={"/forget-pass"} element={<ForgetPassPage/> } />
                   <Route path={"*"} element={<Page404/> } />
               </Routes>
           </BrowserRouter>
