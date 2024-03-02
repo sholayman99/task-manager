@@ -1,10 +1,11 @@
 import React from 'react';
+import MasterLayout from "../components/MasterLayout/Master-Layout.jsx";
 
 const DashboardPage = () => {
     return (
-        <div>
-
-        </div>
+        <MasterLayout>
+          <h1> Dashboard</h1>
+        </MasterLayout>
     );
 };
 

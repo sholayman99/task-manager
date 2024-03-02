@@ -1,10 +1,11 @@
 import React from 'react';
+import MasterLayout from "../components/MasterLayout/Master-Layout.jsx";
 
 const ProgressPage = () => {
     return (
-        <div>
-
-        </div>
+        <MasterLayout>
+            <h1> ProgressPage </h1>
+        </MasterLayout>
     );
 };
 
