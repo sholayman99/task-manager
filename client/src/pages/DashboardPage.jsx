@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {lazy, Suspense} from 'react';
 import MasterLayout from "../components/MasterLayout/Master-Layout.jsx";
+import LazyMotion from "../components/MasterLayout/LazyMotion.jsx";
+const Dashboard = lazy(()=>import("../components/Dashboard/Dashboard.jsx")) ;
 
 const DashboardPage = () => {
     return (
         <MasterLayout>
-          <h1> Dashboard</h1>
+            <Suspense fallback={<LazyMotion />}>
+               <Dashboard />
+            </Suspense>
         </MasterLayout>
     );
 };
