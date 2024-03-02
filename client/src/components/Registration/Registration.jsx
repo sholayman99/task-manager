@@ -1,12 +1,14 @@
 import React, {useRef} from 'react';
-import {Link} from "react-router-dom";
-import {errorMsg, isEmail, isEmpty, isMobile} from "../../helpers/FormHelper.js";
+import {Link, useNavigate} from "react-router-dom";
+import {errorMsg, isEmail, isEmpty, isMobile, successMsg} from "../../helpers/FormHelper.js";
+import {regiRequest} from "../../apiRequest/apiRequest.js";
 
 const Registration = () => {
 
     let emailRef,firstNameRef,lastNameRef,mobileRef,passwordRef = useRef();
+    const navigate = useNavigate();
 
-    const onRegistration = () => {
+    const onRegistration = async () => {
       let  email     =  emailRef.value;
       let  firstName =  firstNameRef.value;
       let  lastName  =  lastNameRef.value;
@@ -29,7 +31,11 @@ const Registration = () => {
            errorMsg("Valid password required!")
        }
        else{
-
+             let res = await regiRequest(email,firstName,lastName,mobile,password);
+             if(res === true){
+                 successMsg("Account created successfully!");
+                 navigate('/login');
+             }
        }
     }
 

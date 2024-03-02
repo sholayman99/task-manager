@@ -13,8 +13,13 @@ import Page404 from "./pages/Page-404.jsx";
 import FullScreenLoader from "./components/MasterLayout/FullScreenLoader.jsx";
 import ForgetPassPage from "./pages/ForgetPassPage.jsx";
 import {Toaster} from "react-hot-toast";
+import axios from "axios";
+
 
 const App = () => {
+
+  axios.defaults.baseURL = "http://localhost:5000/api/v1"
+
     return (
         <>
           <BrowserRouter>
