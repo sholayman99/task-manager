@@ -1,7 +1,25 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Link} from "react-router-dom";
+import {errorMsg, isEmail, isEmpty} from "../../helpers/FormHelper.js";
 
 const Login = () => {
+
+    let emailRef,passRef = useRef();
+
+    const loginSubmit = () => {
+          let email = emailRef.value;
+          let pass = passRef.password;
+          if(!isEmail(email)){
+              errorMsg("Invalid email!");
+          }
+          else if(isEmpty(pass)){
+              errorMsg("Password required!")
+          }
+          else{
+
+          }
+    }
+
     return (
         <>
             <div className="container">
@@ -11,12 +29,11 @@ const Login = () => {
                             <div className="card-body">
                                 <h4>SIGN IN</h4>
                                 <br/>
-                                <input placeholder="User Email" className="form-control animated fadeInUp" type="email"/>
+                                <input ref={( input)=> emailRef = input} placeholder="User Email" className="form-control animated fadeInUp" type="email"/>
                                 <br/>
-                                <input  placeholder="User Password" className="form-control animated fadeInUp" type="password"/>
+                                <input  ref={(input)=> passRef = input}  placeholder="User Password" className="form-control animated fadeInUp" type="password"/>
                                 <br/>
-                                <button className="btn w-100 animated fadeInUp float-end btn-primary">Next
-                                </button>
+                                <button onClick={loginSubmit} className="btn w-100 animated fadeInUp float-end btn-primary">Login</button>
                                 <hr/>
                                 <div className="mt-3">
                                     <span>
