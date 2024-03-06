@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import CreatePage from "./pages/CreatePage.jsx";
 import CanceledPage from "./pages/CanceledPage.jsx";
@@ -14,33 +14,50 @@ import FullScreenLoader from "./components/MasterLayout/FullScreenLoader.jsx";
 import ForgetPassPage from "./pages/ForgetPassPage.jsx";
 import {Toaster} from "react-hot-toast";
 import axios from "axios";
+import {getToken} from "./helpers/SessionHelper.js";
 
 
 const App = () => {
 
   axios.defaults.baseURL = "http://localhost:5000/api/v1"
 
-    return (
-        <>
-          <BrowserRouter>
-              <Routes>
-                  <Route path={"/"} element={<DashboardPage/> } />
-                  <Route path={"/create"} element={<CreatePage /> } />
-                  <Route path={"/canceled"} element={<CanceledPage/> } />
-                  <Route path={"/completed"} element={<CompletedPage/> } />
-                  <Route path={"/new"} element={<NewPage/> } />
-                  <Route path={"/registration"} element={<RegiPage/> } />
-                  <Route path={"/login"} element={<LoginPage/> } />
-                  <Route path={"/profile"} element={<ProfilePage/> } />
-                  <Route path={"/progress"} element={<ProgressPage/> } />
-                  <Route path={"/forget-pass"} element={<ForgetPassPage/> } />
-                  <Route path={"*"} element={<Page404/> } />
-              </Routes>
-          </BrowserRouter>
-            <Toaster position={"bottom-center"} />
-            <FullScreenLoader />
-        </>
-    );
+  if(getToken()){
+      return (
+          <>
+              <BrowserRouter>
+                  <Routes>
+                      <Route path={"/"} element={<DashboardPage/> } />
+                      <Route path={"/create"} element={<CreatePage /> } />
+                      <Route path={"/canceled"} element={<CanceledPage/> } />
+                      <Route path={"/completed"} element={<CompletedPage/> } />
+                      <Route path={"/new"} element={<NewPage/> } />
+                      <Route path={"/profile"} element={<ProfilePage/> } />
+                      <Route path={"/progress"} element={<ProgressPage/> } />
+                      <Route path={"*"} element={<Page404/> } />
+                  </Routes>
+              </BrowserRouter>
+              <Toaster position={"bottom-center"} />
+              <FullScreenLoader />
+          </>
+      );
+  }
+  else{
+      return (
+          <>
+              <BrowserRouter>
+                  <Routes>
+                      <Route path={"/"} element={< Navigate to={"/login"} replace />} />
+                      <Route path={"/registration"} element={<RegiPage />} />
+                      <Route path={"/login"} element={<LoginPage />} />
+                      <Route path={"/forget-pass"} element={<ForgetPassPage />} />
+                      <Route path={"*"} element={<Page404 />} />
+                  </Routes>
+              </BrowserRouter>
+              <Toaster position={"bottom-center"} />
+              <FullScreenLoader />
+          </>
+      );
+  }
 };
 
 export default App;
