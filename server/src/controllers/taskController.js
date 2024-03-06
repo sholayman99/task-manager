@@ -36,7 +36,7 @@ exports.updateTask = async (req,res)=> {
     }
 };
 
-exports.listByTaskName = async (req,res)=>{
+exports.listByTaskStatus = async (req,res)=>{
     try {
         let email = req.headers['email'];
         let status = req.params['status'];

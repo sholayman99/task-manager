@@ -14,7 +14,7 @@ router.post("/profileUpdate",authVerify,userController.profileUpdate);
 router.post("/createTask",authVerify,taskController.createTask);
 router.post("/deleteTask/:id",authVerify,taskController.deleteTask);
 router.post("/updateTask/:id/:status",authVerify,taskController.updateTask);
-router.get("/listByTaskName/:status",authVerify,taskController.listByTaskName);
+router.get("/listByTaskStatus/:status",authVerify,taskController.listByTaskStatus);
 router.get("/taskStatusCount",authVerify,taskController.taskStatusCount);
 
 

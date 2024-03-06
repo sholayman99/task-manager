@@ -33,7 +33,6 @@ const Registration = () => {
        else{
              let res = await regiRequest(email,firstName,lastName,mobile,password);
              if(res === true){
-                 successMsg("Account created successfully!");
                  navigate('/login');
              }
        }
