@@ -1,14 +1,15 @@
 import React, {useRef} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {errorMsg, isEmail, isEmpty} from "../../helpers/FormHelper.js";
+import {loginRequest} from "../../apiRequest/apiRequest.js";
 
 const Login = () => {
 
     let emailRef,passRef = useRef();
-
-    const loginSubmit = () => {
+    const navigate = useNavigate();
+    const loginSubmit = async () => {
           let email = emailRef.value;
-          let pass = passRef.password;
+          let pass = passRef.value;
           if(!isEmail(email)){
               errorMsg("Invalid email!");
           }
@@ -16,7 +17,13 @@ const Login = () => {
               errorMsg("Password required!")
           }
           else{
-
+              let res = await loginRequest(email,pass);
+              if(res === true){
+               window.location.href = "/";
+              }
+              else {
+                 navigate('/registration');
+              }
           }
     }
 

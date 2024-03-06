@@ -8,8 +8,8 @@ class sessionHelper{
         return localStorage.getItem("token");
     }
 
-    setUserDetails(det){
-        localStorage.setItem(JSON.stringify("userDetails"),det);
+    setUserDetails(details){
+        localStorage.setItem("userDetails",JSON.stringify(details));
     }
 
     getUserDetails(){

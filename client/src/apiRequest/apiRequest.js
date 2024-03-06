@@ -2,6 +2,7 @@ import axios from "axios";
 import {errorMsg, successMsg} from "../helpers/FormHelper.js";
 import store from "../redux/store/store.js";
 import {hideLoader, showLoader} from "../redux/state-slices/settings-slice.js";
+import {setToken, setUserDetails} from "../helpers/SessionHelper.js";
 
 
 export async function loginRequest(email,pass){
@@ -10,13 +11,21 @@ export async function loginRequest(email,pass){
 
     try {
        let res = await axios.post('/login',postBody);
+       store.dispatch(hideLoader());
        if(res.data['status'] === 'success'){
-           store.dispatch(hideLoader());
-
+           setToken(res.data['token']);
+           setUserDetails(res.data['data']);
+           successMsg("Login successfully");
+           return true;
+       }
+       else{
+         errorMsg("Invalid email & password!");
+         return false;
        }
     }
     catch (e) {
-
+          errorMsg("Something went wrong!");
+          return false;
     }
 
 }
