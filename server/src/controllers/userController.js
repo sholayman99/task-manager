@@ -25,7 +25,7 @@ exports.login = async (req,res)=>{
         if(result.length === 1){
           let payload = {exp: Math.floor(Date.now() / 1000) + (24*60 * 60),data:result[0]['email']};
           let token = jwt.sign(payload,'secret123abc');
-          return res.status(201).json({status:"success",token:token,data:result[0]});
+          return res.status(200).json({status:"success",token:token,data:result[0]});
         }
         else{
             return res.status(401).json({status:"fail",message:"unauthorized"});

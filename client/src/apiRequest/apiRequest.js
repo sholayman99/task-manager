@@ -4,6 +4,7 @@ import store from "../redux/store/store.js";
 import {hideLoader, showLoader} from "../redux/state-slices/settings-slice.js";
 import {getToken, setToken, setUserDetails} from "../helpers/SessionHelper.js";
 import {setCanceled, setCompleted, setNew, setProgress} from "../redux/state-slices/task-slice.js";
+import {setSummary} from "../redux/state-slices/summary-slice.js";
 
 let axiosHeader = {headers:{'token':getToken()}};
 
@@ -25,7 +26,6 @@ export async function createTaskRequest(title,des){
         return false;
     }
 }
-
 export async function loginRequest(email,pass){
     store.dispatch(showLoader());
     let postBody ={email:email,password:pass};
@@ -76,7 +76,6 @@ export async function regiRequest(email,firstName,lastName,mobile,password,photo
        }
     }
 }
-
 export async function taskRequest(status){
 
     store.dispatch(showLoader());
@@ -103,5 +102,20 @@ export async function taskRequest(status){
     catch (e) {
         store.dispatch(hideLoader());
         errorMsg("Something went wrong!");
+    }
+}
+
+export async function taskCountRequest(){
+    store.dispatch(showLoader());
+    try {
+        let res = await axios.get("/taskStatusCount",axiosHeader);
+        store.dispatch(hideLoader());
+        if(res.data['status']==='success'){
+            store.dispatch(setSummary(res.data['data']));
+        }
+    }
+    catch (e) {
+        store.dispatch(hideLoader());
+        errorMsg('Something went wrong!')
     }
 }
