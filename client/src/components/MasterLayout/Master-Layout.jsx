@@ -6,6 +6,7 @@ import {BsHourglass, BsListNested} from "react-icons/bs";
 import logo from "../../assets/images/logo.svg";
 import {RiDashboardLine} from "react-icons/ri";
 import {MdOutlineCancelPresentation} from "react-icons/md";
+import {removeSession} from "../../helpers/SessionHelper.js";
 
 
 
@@ -14,7 +15,7 @@ const MasterLayout = (props) => {
     let contentRef,sideNavRef=useRef();
 
     const onLogout=()=>{
-
+        removeSession();
     }
 
     const MenuBarClickHandler = () => {
