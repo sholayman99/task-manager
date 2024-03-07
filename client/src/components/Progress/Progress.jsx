@@ -3,6 +3,8 @@ import {Container} from "react-bootstrap";
 import {AiOutlineCalendar, AiOutlineDelete, AiOutlineEdit} from "react-icons/ai";
 import {taskRequest} from "../../apiRequest/apiRequest.js";
 import {useSelector} from "react-redux";
+import {deleteTodo} from "../../helpers/DeleteAlert.js";
+import {updateTask} from "../../helpers/UpdateAlert.js";
 
 const Progress = () => {
 
@@ -13,6 +15,20 @@ const Progress = () => {
     }, []);
 
     const progressList = useSelector((state)=>state.task.progress);
+
+    const deleteItem = async (id)=>{
+        let res = await deleteTodo(id);
+        if(res === true){
+            await taskRequest("Progress");
+        }
+    }
+
+    const updateTaskStatus = async (id,status) => {
+          let res =await updateTask(id,status);
+          if(res === true){
+              await taskRequest("Progress")
+          }
+    }
 
     return (
         <Container fluid={true} className="content-body">
@@ -42,8 +58,8 @@ const Progress = () => {
                                         <p className="animated fadeInUp">{item['description']}</p>
                                         <p className="m-0 animated fadeInUp p-0">
                                             <AiOutlineCalendar/>{item['createdDate']}
-                                            <a className="icon-nav text-primary mx-1"><AiOutlineEdit/></a>
-                                            <a className="icon-nav text-danger mx-1"><AiOutlineDelete/></a>
+                                            <a onClick={()=>updateTaskStatus(item['_id'],item['status'])} className="icon-nav text-primary mx-1"><AiOutlineEdit/></a>
+                                            <a onClick={()=>deleteItem(item['_id'])} className="icon-nav text-danger mx-1"><AiOutlineDelete/></a>
                                             <a className="badge float-end bg-warning">{item['status']}</a>
                                         </p>
                                     </div>

@@ -119,3 +119,37 @@ export async function taskCountRequest(){
         errorMsg('Something went wrong!')
     }
 }
+
+export async function itemDeleteRequest(id){
+    store.dispatch(showLoader());
+    try {
+       let res = await axios.get(`/deleteTask/${id}`,axiosHeader);
+        store.dispatch(hideLoader());
+       if(res.data['status']==='success'){
+          successMsg("Item deleted successfully!") ;
+          return true
+       }
+    }
+    catch (e) {
+        store.dispatch(hideLoader());
+        errorMsg('Something went wrong!');
+        return false;
+    }
+}
+
+export async function itemUpdateRequest(id,status){
+    store.dispatch(showLoader());
+    try {
+        let res = await axios.get(`/updateTask/${id}/${status}`,axiosHeader);
+        store.dispatch(hideLoader());
+        if(res.data['status']==='success'){
+            successMsg("Item updated successfully!") ;
+            return true
+        }
+    }
+    catch (e) {
+        store.dispatch(hideLoader());
+        errorMsg('Something went wrong!');
+        return false;
+    }
+}
