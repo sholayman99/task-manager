@@ -35,7 +35,8 @@ app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
 app.use(limiter);
-app.use(express.json());
+app.use(express.json({limit:"50Mb"}));
+app.use(express.urlencoded({limit:"50Mb"}));
 app.use(cookieParser());
 
 //implementation of routes
