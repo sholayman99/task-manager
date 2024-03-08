@@ -5,6 +5,7 @@ import {hideLoader, showLoader} from "../redux/state-slices/settings-slice.js";
 import {getToken, setToken, setUserDetails} from "../helpers/SessionHelper.js";
 import {setCanceled, setCompleted, setNew, setProgress} from "../redux/state-slices/task-slice.js";
 import {setSummary} from "../redux/state-slices/summary-slice.js";
+import {setProfile} from "../redux/state-slices/profile-slice.js";
 
 let axiosHeader = {headers:{'token':getToken()}};
 
@@ -144,6 +145,23 @@ export async function itemUpdateRequest(id,status){
         store.dispatch(hideLoader());
         if(res.data['status']==='success'){
             successMsg("Item updated successfully!") ;
+            return true
+        }
+    }
+    catch (e) {
+        store.dispatch(hideLoader());
+        errorMsg('Something went wrong!');
+        return false;
+    }
+}
+
+export async function userDetailsRequest(){
+    store.dispatch(showLoader());
+    try {
+        let res = await axios.get(`/profileDetails`,axiosHeader);
+        store.dispatch(hideLoader());
+        if(res.data['status']==='success'){
+            store.dispatch(setProfile(res.data['data'][0]));
             return true
         }
     }

@@ -9,6 +9,7 @@ const authVerify = require("../middlewares/authVerifyMiddleware");
 router.post("/registration" , userController.registration);
 router.post("/login" , userController.login);
 router.post("/profileUpdate",authVerify,userController.profileUpdate);
+router.get('/profileDetails' , authVerify , userController.profileDetails)
 
 //task
 router.post("/createTask",authVerify,taskController.createTask);
