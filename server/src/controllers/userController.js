@@ -54,7 +54,7 @@ exports.profileDetails = async (req,res)=>{
        let email = req.headers['email'];
        let matchStage ={$match:{email:email}};
        let projectStage ={$project: {
-               _id:1, email:1,password: 1,photo:1,firstName: 1,lastName: 1
+               _id:1, email:1,password: 1,photo:1,firstName: 1,lastName: 1,mobile: 1
            }};
        let data = await userModel.aggregate([matchStage,projectStage]);
         return res.status(200).json({status:"success",data:data});

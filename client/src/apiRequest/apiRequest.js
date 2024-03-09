@@ -171,3 +171,21 @@ export async function userDetailsRequest(){
         return false;
     }
 }
+
+export async function updateProfileRequest(email,password,mobile,fName,lName,photo){
+    store.dispatch(showLoader());
+    let postBody = {email:email,password:password,mobile:mobile,firstName: fName,lastName: lName,photo:photo};
+    try {
+        let res = await axios.post('/profileUpdate',postBody,axiosHeader);
+        console.log(res)
+        store.dispatch(hideLoader());
+        if(res.data['status'] === 'success'){
+            successMsg("Profile updated!");
+            return true;
+        }
+    }
+    catch (e) {
+       errorMsg("Something went wrong!");
+       return false;
+    }
+}

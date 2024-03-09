@@ -7,12 +7,14 @@ import logo from "../../assets/images/logo.svg";
 import {RiDashboardLine} from "react-icons/ri";
 import {MdOutlineCancelPresentation} from "react-icons/md";
 import {getUserDetails, removeSession} from "../../helpers/SessionHelper.js";
+import {useSelector} from "react-redux";
 
 
 
 const MasterLayout = (props) => {
 
     let contentRef,sideNavRef=useRef();
+    const profileData = useSelector((state)=>state.profile.value);
 
     const onLogout=()=>{
         removeSession();
@@ -47,10 +49,10 @@ const MasterLayout = (props) => {
 
                     <div className="float-right h-auto d-flex">
                         <div className="user-dropdown">
-                            <img className="icon-nav-img icon-nav" src={getUserDetails()['photo']} alt=""/>
+                            <img className="icon-nav-img icon-nav" src={profileData['photo']} alt=""/>
                             <div className="user-dropdown-content ">
                                 <div className="mt-4 text-center">
-                                    <img className="icon-nav-img" src={getUserDetails()['photo']} alt=""/>
+                                    <img className="icon-nav-img" src={profileData['photo']} alt=""/>
                                     <h6>{getUserDetails()['firstName']}</h6>
                                     <hr className="user-dropdown-divider  p-0"/>
                                 </div>
