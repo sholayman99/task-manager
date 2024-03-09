@@ -44,9 +44,9 @@ const Login = () => {
                                 <hr/>
                                 <div className="mt-3">
                                     <span>
-                                        <Link className="text-center ms-3 animated fadeInUp" to="/registration">Sign Up </Link>
+                                        <Link className="text-center h6 ms-3 animated fadeInUp" to="/registration">Sign Up </Link>
                                         <span className="ms-1">|</span>
-                                        <Link className="text-center ms-3 animated fadeInUp" to="/forget-pass">Forget Password</Link>
+                                        <Link className="text-center h6 ms-3 animated fadeInUp" to="/send-otp">Forget Password</Link>
                                     </span>
                                 </div>
                             </div>

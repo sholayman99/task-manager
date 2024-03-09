@@ -1,5 +1,7 @@
 const userModel = require("../models/userModel");
+const otpModel = require("../models/otpModel");
 const jwt = require("jsonwebtoken");
+const emailSend = require("../helpers/emailHelper");
 
 exports.registration = async (req,res)=>{
    try {
@@ -61,5 +63,74 @@ exports.profileDetails = async (req,res)=>{
     }
     catch (e) {
         return res.status(400).json({status:"fail",data:e});
+    }
+}
+
+exports.verifyEmail = async (req,res)=>{
+    let email = req.params['email'];
+    let code = Math.round(Math.floor(100000 + Math.random() * 900000 ));
+    try {
+       let count = await userModel.aggregate([
+           {$match:{email:email}},{$count:"total"}
+       ]);
+       if(count.length === 1){
+         let data =  await otpModel.create({email:email,otp:code});
+         await emailSend(email,"Otp Verification" , `Your Otp Verification Code Is : ${code}`);
+         res.status(200).json({status:'success',data:data});
+       }
+       else {
+           res.status(403).json({status:'fail',data:"No user found!"});
+       }
+    }
+    catch (e){
+        res.status(400).json({status:'fail',data:e.message});
+    }
+}
+
+exports.verifyOtp = async (req,res)=>{
+    let email = req.params['email'];
+    let otp = req.params['otp'];
+    let status = 0;
+    let updatedStatus = 1;
+
+   try {
+       let count = await otpModel.aggregate([
+           {$match:{email:email,otp:otp}}
+       ]);
+       if(count.length === 1){
+           let data = await otpModel.updateOne(
+               {email:email,otp:otp,status:status},
+               {email:email,otp:otp,status:updatedStatus});
+           res.status(200).json({status:'success',data:data});
+       } else {
+           res.status(200).json({status: "fail", data: "Invalid OTP Code"})
+       }
+   }
+   catch (e) {
+       res.status(200).json({status: "fail", data:e})
+   }
+}
+
+exports.createPassword = async (req,res)=>{
+    let email = req.body['email'];
+    let password = req.body['password'];
+    let otp = req.body['otp'];
+    let updatedStatus = 1;
+    try {
+       let count = await otpModel.aggregate([
+           {$match: {email:email,otp:otp,status:updatedStatus}},{$count:"total"}
+       ]);
+       if(count.length === 1){
+           await  otpModel.updateOne({email:email,otp:otp,status:updatedStatus},{status:0,otp:"0"})
+           let data = await userModel.updateOne({email:email},{password:password});
+           res.status(200).json({status:"success",data:data});
+
+       }
+       else{
+           res.status(403).json({status:"fail",data:"Failed to update"});
+       }
+    }
+    catch (e) {
+        res.status(400).json({status:"fail",data:"Something went wrong!"});
     }
 }

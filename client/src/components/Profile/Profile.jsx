@@ -2,10 +2,12 @@ import React, {useRef} from 'react';
 import {useSelector} from "react-redux";
 import {errorMsg, getBase64, isEmail, isEmpty, isMobile} from "../../helpers/FormHelper.js";
 import {updateProfileRequest, userDetailsRequest} from "../../apiRequest/apiRequest.js";
+import {useNavigate} from "react-router-dom";
 
 const Profile = () => {
     let emailRef,firstNameRef,lastNameRef,mobileRef,passwordRef,userImgRef,userImgView=useRef();
     const profileData = useSelector((state)=>state.profile.value);
+    const navigate = useNavigate();
     
     const previewImg = async() => {
       let image = userImgRef.files[0];
@@ -41,6 +43,7 @@ const Profile = () => {
           let res = await updateProfileRequest(email,password,mobile,fName,lName,photo);
           if(res === true){
               await userDetailsRequest();
+              navigate('/');
           }
       }
     }

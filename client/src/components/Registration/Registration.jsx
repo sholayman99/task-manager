@@ -79,9 +79,9 @@ const Registration = () => {
                                     </div>
                                     <div className="mt-3">
                                     <span>
-                                        <Link className="text-center ms-3 animated fadeInUp" to="/login">Sign In </Link>
+                                        <Link className="text-center ms-3 h6 animated fadeInUp" to="/login">Sign In </Link>
                                         <span className="ms-1">|</span>
-                                        <Link className="text-center ms-3  animated fadeInUp" to="/forget-pass">Forget Password</Link>
+                                        <Link className="text-center ms-3 h6  animated fadeInUp" to="/send-otp">Forget Password</Link>
                                     </span>
                                     </div>
                                 </div>

@@ -15,6 +15,9 @@ import ForgetPassPage from "./pages/ForgetPassPage.jsx";
 import {Toaster} from "react-hot-toast";
 import axios from "axios";
 import {getToken} from "./helpers/SessionHelper.js";
+import SendOtpPage from "./pages/Password Recover/SendOtpPage.jsx";
+import VerifyOtpPage from "./pages/Password Recover/VerifyOtpPage.jsx";
+import CreatePassPage from "./pages/Password Recover/CreatePassPage.jsx";
 
 
 const App = () => {
@@ -49,7 +52,9 @@ const App = () => {
                       <Route path={"/"} element={< Navigate to={"/login"} replace />} />
                       <Route path={"/registration"} element={<RegiPage />} />
                       <Route path={"/login"} element={<LoginPage />} />
-                      <Route path={"/forget-pass"} element={<ForgetPassPage />} />
+                      <Route path={"/send-otp"} element={<SendOtpPage />} />
+                      <Route path={"/verify-otp"} element={<VerifyOtpPage />} />
+                      <Route path={"/create-password"} element={<CreatePassPage />} />
                       <Route path={"*"} element={<Page404 />} />
                   </Routes>
               </BrowserRouter>

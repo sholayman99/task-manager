@@ -9,7 +9,10 @@ const authVerify = require("../middlewares/authVerifyMiddleware");
 router.post("/registration" , userController.registration);
 router.post("/login" , userController.login);
 router.post("/profileUpdate",authVerify,userController.profileUpdate);
-router.get('/profileDetails' , authVerify , userController.profileDetails)
+router.get('/profileDetails' , authVerify , userController.profileDetails);
+router.get('/verifyEmail/:email', userController.verifyEmail);
+router.get('/verifyOtp/:email/:otp', userController.verifyOtp);
+router.post('/createPassword', userController.createPassword);
 
 //task
 router.post("/createTask",authVerify,taskController.createTask);

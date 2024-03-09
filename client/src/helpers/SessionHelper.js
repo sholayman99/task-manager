@@ -20,6 +20,23 @@ class sessionHelper{
         localStorage.clear();
         window.location.href = "/login"
     }
+
+    setEmail(email){
+        sessionStorage.setItem("email",email);
+    }
+
+    getEmail(){
+        return sessionStorage.getItem("email");
+    }
+
+    setOtp(otp){
+        sessionStorage.setItem("otp",otp);
+    }
+
+    getOtp(){
+        return sessionStorage.getItem("otp");
+    }
 }
 
-export const {setToken,getToken,setUserDetails,removeSession,getUserDetails} = new sessionHelper();
+export const {setToken,getToken,setUserDetails,removeSession,getUserDetails,
+    setEmail,getEmail,setOtp,getOtp} = new sessionHelper();
