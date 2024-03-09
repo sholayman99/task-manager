@@ -42,7 +42,7 @@ const Login = () => {
                                 <br/>
                                 <button onClick={loginSubmit} className="btn w-100 animated fadeInUp float-end btn-primary">Login</button>
                                 <hr/>
-                                <div className="mt-3">
+                                <div className="mt-3 text-end">
                                     <span>
                                         <Link className="text-center h6 ms-3 animated fadeInUp" to="/registration">Sign Up </Link>
                                         <span className="ms-1">|</span>
